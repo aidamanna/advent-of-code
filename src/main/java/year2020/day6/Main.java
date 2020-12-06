@@ -2152,6 +2152,7 @@ public class Main {
                 "ofxw";
 
         CustomsDeclarationForm form = new CustomsDeclarationForm();
-        System.out.println(form.getCount(rawAnswers));
+        System.out.println("Answers anyone: " + form.getCountForAnyoneYes(rawAnswers));
+        System.out.println("Answers everyone: " + form.getCountForEveryoneYes(rawAnswers));
     }
 }
