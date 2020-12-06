@@ -1,7 +1,6 @@
 package year2020.day2;
 
 import org.junit.jupiter.api.Test;
-import year2020.day2.PasswordValidator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
