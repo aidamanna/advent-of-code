@@ -1,6 +1,5 @@
 package year2020.day9;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -14,10 +13,33 @@ public class EncodedNumbers {
         this.preamble = preamble;
     }
 
-    public Long getWeakness(String rawEncodedNumbers) {
-        List<Long> encodedNumbers = Arrays.asList(rawEncodedNumbers.split("\n")).stream()
-                .map(Long::parseLong)
-                .collect(Collectors.toList());
+    public Long getEncryptionWeakness(String rawEncodedNumbers) {
+        Long weakNumber = getWeakNumber(rawEncodedNumbers);
+
+        List<Long> encodedNumbers = getEncodedNumbers(rawEncodedNumbers);
+
+        int leftIndex = 0;
+        int rightIndex = 1;
+
+        while (rightIndex > leftIndex) {
+            if (encodedNumbers.subList(leftIndex, rightIndex + 1).stream().reduce(0L, Long::sum) == weakNumber) {
+                return Collections.max(encodedNumbers.subList(leftIndex, rightIndex + 1)) + Collections.min(encodedNumbers.subList(leftIndex, rightIndex + 1));
+            }
+
+            if (encodedNumbers.subList(leftIndex, rightIndex + 1).stream().reduce(0L, Long::sum) < weakNumber) {
+                rightIndex++;
+            } else {
+                leftIndex++;
+            }
+        }
+
+
+
+        return 0L;
+    }
+
+    public Long getWeakNumber(String rawEncodedNumbers) {
+        List<Long> encodedNumbers = getEncodedNumbers(rawEncodedNumbers);
 
         for (int i = preamble; i < encodedNumbers.size(); i++) {
             List<Long> preambleNumbers = List.copyOf(encodedNumbers.subList(i - preamble, i));
@@ -29,6 +51,12 @@ public class EncodedNumbers {
         }
 
         return 0L;
+    }
+
+    private List<Long> getEncodedNumbers(String rawEncodedNumbers) {
+        return Arrays.asList(rawEncodedNumbers.split("\n")).stream()
+                .map(Long::parseLong)
+                .collect(Collectors.toList());
     }
 
     private boolean isNumberSumOfPreambles(List<Long> preambleNumbers, int preamble, long sum) {

@@ -1006,6 +1006,7 @@ public class Main {
 
         EncodedNumbers encodedNumbers = new EncodedNumbers(25);
 
-        System.out.println("Number is: " + encodedNumbers.getWeakness(rawEncodedNumbers));
+        System.out.println("Weak number is: " + encodedNumbers.getWeakNumber(rawEncodedNumbers));
+        System.out.println("Encryption weakness is: " + encodedNumbers.getEncryptionWeakness(rawEncodedNumbers));
     }
 }
